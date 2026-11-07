@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f7f7f2">
+  <meta name="description" content="TALVING — авторские путешествия и яркие впечатления.">
+  <title>TALVING — путешествия с характером</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="min-h-screen bg-[#f7f7f2] font-sans text-[#18271f] antialiased">
+  <header class="sticky top-0 z-40 border-b border-[#18271f]/10 bg-[#f7f7f2]/95 backdrop-blur">
+    <div class="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 lg:px-8">
+      <a href="#home" class="flex items-center gap-2 text-xl font-black tracking-[0.18em]"><span class="grid h-9 w-9 place-items-center rounded-full bg-[#d7f45b]">T</span>TALVING</a>
+      <nav id="desktop-nav" class="hidden items-center gap-5 lg:flex" aria-label="Главная навигация"></nav>
+      <a href="#booking" class="hidden rounded-full bg-[#18271f] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#365441] sm:inline-flex">Обсудить поездку ↗</a>
+      <button id="menu-toggle" class="grid h-10 w-10 place-items-center rounded-full border border-[#18271f]/15 text-xl lg:hidden" aria-label="Открыть меню" aria-expanded="false">☰</button>
+    </div>
+    <nav id="mobile-nav" class="hidden border-t border-[#18271f]/10 px-5 py-3 lg:hidden" aria-label="Мобильная навигация"></nav>
+  </header>
+  <main id="app" class="min-h-[65vh]"></main>
+  <footer class="bg-[#18271f] text-white">
+    <div class="mx-auto grid max-w-7xl gap-10 px-5 py-14 md:grid-cols-3 lg:px-8">
+      <div><a href="#home" class="text-xl font-black tracking-[0.18em]">TALVING<span class="text-[#d7f45b]">.</span></a><p class="mt-4 max-w-xs text-sm leading-6 text-white/60">Путешествия, после которых хочется жить еще внимательнее.</p></div>
+      <div><p class="text-sm font-bold uppercase tracking-widest text-[#d7f45b]">Исследуйте</p><div id="footer-nav" class="mt-4 grid grid-cols-2 gap-3 text-sm text-white/70"></div></div>
+      <div><p class="text-sm font-bold uppercase tracking-widest text-[#d7f45b]">На связи</p><a class="mt-4 block text-lg hover:text-[#d7f45b]" href="mailto:hello@talving.travel">hello@talving.travel</a><p class="mt-2 text-sm text-white/60">Москва · Путешествуем по всему миру</p><a href="#booking" class="mt-5 inline-flex rounded-full border border-white/25 px-4 py-2 text-sm hover:border-[#d7f45b] hover:text-[#d7f45b]">Спланировать маршрут ↗</a></div>
+    </div>
+    <div class="border-t border-white/10 px-5 py-5 text-center text-xs text-white/45">© 2025 TALVING Travel Studio. Создано для больших историй.</div>
+  </footer>
+  <script>
+    const pages = [
+      { id: "home", label: "Главная" }, { id: "destinations", label: "Направления" },
+      { id: "tours", label: "Туры" }, { id: "experience", label: "Впечатления" },
+      { id: "journal", label: "Журнал" }, { id: "about", label: "О нас" },
+      { id: "reviews", label: "Отзывы" }, { id: "faq", label: "FAQ" },
+      { id: "contacts", label: "Контакты" }, { id: "booking", label: "Заявка" }
+    ];
+    const photo = {
+      hero: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=2000&q=85",
+      japan: "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&w=1000&q=80",
+      italy: "https://images.unsplash.com/photo-1516483638261-f4dbaf036963?auto=format&fit=crop&w=1000&q=80",
+      iceland: "https://images.unsplash.com/photo-1476610182048-b716b8518aae?auto=format&fit=crop&w=1000&q=80",
+      morocco: "https://images.unsplash.com/photo-1539020140153-e479b8c22e70?auto=format&fit=crop&w=1000&q=80",
+      bali: "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=1000&q=80",
+      coast: "https://images.unsplash.com/photo-1510414842594-a61c69b5ae57?auto=format&fit=crop&w=1200&q=80",
+      desert: "https://images.unsplash.com/photo-1509316785289-025f5b846b35?auto=format&fit=crop&w=1200&q=80",
+      forest: "https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=1200&q=80"
+    };
+    const destinations = [
+      { name: "Япония", place: "Азия", image: photo.japan, description: "Токио, Киото и тихие тропы, где древние традиции встречаются с будущим.", days: "10 дней", price: "от 189 000 ₽" },
+      { name: "Италия", place: "Европа", image: photo.italy, description: "Сицилийские улочки, семейные траттории и море цвета лазури.", days: "8 дней", price: "от 142 000 ₽" },
+      { name: "Исландия", place: "Север", image: photo.iceland, description: "Водопады, черные пляжи и дорога, которая меняет масштаб мыслей.", days: "7 дней", price: "от 215 000 ₽" },
+      { name: "Марокко", place: "Африка", image: photo.morocco, description: "Медины, Атласские горы и ночь под бесконечным звездным небом.", days: "9 дней", price: "от 156 000 ₽" },
+      { name: "Бали", place: "Азия", image: photo.bali, description: "Зеленые рисовые террасы, океан и неспешное искусство быть здесь.", days: "11 дней", price: "от 128 000 ₽" },
+      { name: "Португалия", place: "Европа", image: photo.coast, description: "Атлантический ветер, маленькие города и длинные обеды у воды.", days: "8 дней", price: "от 149 000 ₽" }
+    ];
+    const tours = [
+      { title: "Япония: между эпохами", image: photo.japan, tag: "Культура", days: "10 дней", price: "189 000 ₽", text: "От неоновых улиц Токио до рассвета у горы Фудзи." },
+      { title: "Исландия: край света", image: photo.iceland, tag: "Приключение", days: "7 дней", price: "215 000 ₽", text: "Кольцевая дорога, горячие источники и водопады без спешки." },
+      { title: "Италия: вкус момента", image: photo.italy, tag: "Гастрономия", days: "8 дней", price: "142 000 ₽", text: "Юг Италии глазами местных: рынки, винодельни и побережье." }
+    ];
+    const articles = [
+      { title: "Как увидеть Киото до пробуждения города", category: "Маршруты", image: photo.japan, time: "6 минут" },
+      { title: "Исландия без спешки: маршрут на неделю", category: "Гид", image: photo.iceland, time: "8 минут" },
+      { title: "Что попробовать на юге Италии", category: "Вкус места", image: photo.italy, time: "5 минут" }
+    ];
+    const card = (item) => `<article class="group overflow-hidden rounded-3xl bg-white shadow-sm"><div class="relative h-60 overflow-hidden"><img src="${item.image}" alt="${item.name || item.title}" class="h-full w-full object-cover transition duration-500 group-hover:scale-105"><span class="absolute left-4 top-4 rounded-full bg-white/90 px-3 py-1 text-xs font-semibold">${item.place || item.tag || "История"}</span></div><div class="p-6"><div class="flex items-start justify-between gap-4"><h3 class="text-xl font-bold">${item.name || item.title}</h3><span class="shrink-0 text-xs text-[#68756c]">${item.days || item.time || ""}</span></div><p class="mt-3 text-sm leading-6 text-[#68756c]">${item.description || item.text || ""}</p><div class="mt-5 flex items-center justify-between"><span class="font-bold">${item.price || item.category || ""}</span><a href="#booking" class="grid h-10 w-10 place-items-center rounded-full bg-[#d7f45b] text-lg transition hover:bg-[#c5e33f]" aria-label="Подробнее о ${item.name || item.title}">↗</a></div></div></article>`;
+    const heading = (eyebrow, title, copy = "") => `<div class="mb-10 max-w-2xl"><p class="mb-3 text-xs font-bold uppercase tracking-[0.2em] text-[#668047]">${eyebrow}</p><h2 class="text-3xl font-black leading-tight tracking-tight sm:text-5xl">${title}</h2>${copy ? `<p class="mt-4 leading-7 text-[#68756c]">${copy}</p>` : ""}</div>`;
+
+    function home() {
+      return `<section class="relative isolate overflow-hidden bg-[#18271f] text-white"><img src="${photo.hero}" alt="Горные вершины на рассвете" class="absolute inset-0 -z-20 h-full w-full object-cover opacity-55"><div class="absolute inset-0 -z-10 bg-gradient-to-r from-[#101b15]/90 via-[#101b15]/45 to-transparent"></div><div class="mx-auto grid min-h-[620px] max-w-7xl items-end gap-12 px-5 pb-14 pt-24 lg:grid-cols-[1fr_300px] lg:px-8 lg:pb-20"><div class="max-w-3xl"><p class="mb-6 inline-flex rounded-full border border-white/30 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em]">Путешествия с характером</p><h1 class="text-5xl font-black leading-[1.03] tracking-tight sm:text-7xl">Мир ближе,<br>чем кажется<span class="text-[#d7f45b]">.</span></h1><p class="mt-6 max-w-xl text-lg leading-8 text-white/75">Авторские маршруты для тех, кто хочет не просто увидеть новое место, а почувствовать его.</p><div class="mt-9 flex flex-wrap gap-3"><a href="#destinations" class="rounded-full bg-[#d7f45b] px-6 py-3.5 font-bold text-[#18271f] transition hover:bg-white">Выбрать направление ↗</a><a href="#about" class="rounded-full border border-white/40 px-6 py-3.5 font-semibold hover:bg-white/10">Познакомиться</a></div></div><div class="rounded-3xl border border-white/20 bg-white/10 p-6 backdrop-blur"><p class="text-sm text-white/70">Следующая история</p><p class="mt-2 text-2xl font-bold">Япония весной</p><div class="my-5 h-px bg-white/20"></div><div class="flex justify-between text-sm"><span>12–21 апреля</span><span>10 дней</span></div><a href="#tours" class="mt-6 inline-block text-sm font-bold text-[#d7f45b]">Смотреть маршрут →</a></div></div></section>
+      <section class="mx-auto max-w-7xl px-5 py-20 lg:px-8">${heading("Выберите свое направление", "Места, которые остаются с вами", "Мы соединяем знаковые места и локальные открытия, чтобы каждая поездка звучала по-новому.")}<div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">${destinations.slice(0, 3).map(card).join("")}</div><div class="mt-8 text-center"><a href="#destinations" class="inline-flex rounded-full border border-[#18271f]/20 px-6 py-3 font-semibold transition hover:bg-[#18271f] hover:text-white">Все направления ↗</a></div></section>
+      <section class="bg-[#e9eddf]"><div class="mx-auto grid max-w-7xl gap-10 px-5 py-20 md:grid-cols-3 lg:px-8"><div><p class="text-4xl font-black">01</p><h3 class="mt-4 text-xl font-bold">Небольшие группы</h3><p class="mt-2 text-sm leading-6 text-[#68756c]">До 10 путешественников — пространство для новых знакомств и своих открытий.</p></div><div><p class="text-4xl font-black">02</p><h3 class="mt-4 text-xl font-bold">Локальный взгляд</h3><p class="mt-2 text-sm leading-6 text-[#68756c]">Наши проводники показывают не только достопримечательности, но и настоящую жизнь места.</p></div><div><p class="text-4xl font-black">03</p><h3 class="mt-4 text-xl font-bold">Свобода и забота</h3><p class="mt-2 text-sm leading-6 text-[#68756c]">Продуманный маршрут оставляет место спонтанности, а команда всегда рядом.</p></div></div></section>
+      <section class="mx-auto max-w-7xl px-5 py-20 lg:px-8">${heading("Ближайшие выезды", "Пора выбрать дату", "Готовые маршруты для тех, кому хочется отправиться в путь уже скоро.")}<div class="grid gap-6 md:grid-cols-3">${tours.map(card).join("")}</div><div class="mt-8 text-center"><a href="#tours" class="font-semibold underline underline-offset-4">Все туры ↗</a></div></section>
+      <section class="px-5 pb-20 lg:px-8"><div class="mx-auto max-w-7xl rounded-[2rem] bg-[#d7f45b] p-8 sm:p-12"><div class="flex flex-col items-start justify-between gap-8 md:flex-row md:items-center"><div><p class="text-xs font-bold uppercase tracking-[0.2em]">Ваш следующий шаг</p><h2 class="mt-3 text-3xl font-black sm:text-4xl">Расскажите, о чем мечтаете</h2><p class="mt-3 text-[#354332]">Подберем маршрут под ваш ритм, интересы и даты.</p></div><a href="#booking" class="rounded-full bg-[#18271f] px-7 py-4 font-bold text-white hover:bg-[#365441]">Начать планировать ↗</a></div></div></section>`;
+    }
+
+    function destinationsPage() {
+      return `<section class="mx-auto max-w-7xl px-5 py-16 lg:px-8">${heading("Атлас TALVING", "Куда зовет вас мир?", "Исследуйте направления — от горных дорог до городов, которые никогда не спят.")}<div class="mb-8 flex flex-col gap-4 sm:flex-row"><label class="sr-only" for="destination-search">Поиск направления</label><input id="destination-search" class="w-full rounded-full border border-[#18271f]/15 bg-white px-5 py-3 outline-none focus:border-[#668047]" type="search" placeholder="Найти направление..."><div class="flex flex-wrap gap-2">${["Все", "Европа", "Азия", "Север", "Африка"].map((x, i) => `<button class="filter-chip rounded-full border px-4 py-2 text-sm ${i === 0 ? "border-[#18271f] bg-[#18271f] text-white" : "border-[#18271f]/15 hover:border-[#18271f]"}" data-region="${x}">${x}</button>`).join("")}</div></div><div id="destination-grid" class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">${destinations.map(card).join("")}</div><p id="no-results" class="hidden py-12 text-center text-[#68756c]">Ничего не найдено. Попробуйте другое направление.</p></section>`;
+    }
+
+    function toursPage() {
+      return `<section class="mx-auto max-w-7xl px-5 py-16 lg:px-8">${heading("Календарь путешествий", "Готовы отправиться?", "Небольшие группы, проверенные маршруты и достаточно времени, чтобы прожить каждое место.")}<div class="grid gap-6 md:grid-cols-3">${tours.map(card).join("")}</div><div class="mt-12 rounded-3xl bg-[#e9eddf] p-8 sm:p-10"><p class="text-xs font-bold uppercase tracking-widest text-[#668047]">Индивидуальный маршрут</p><h3 class="mt-2 text-2xl font-bold">Не нашли то, что искали?</h3><p class="mt-2 text-[#68756c]">Соберем поездку только для вас — с нужными датами и темпом.</p><a href="#booking" class="mt-5 inline-flex rounded-full bg-[#18271f] px-6 py-3 font-semibold text-white">Обсудить поездку ↗</a></div></section>`;
+    }
+
+    function experiencePage() {
+      const moments = [
+        { title: "Вкус места", text: "Готовим вместе с местными, пробуем сезонное и узнаем истории за каждым блюдом.", image: photo.italy, tag: "Гастрономия" },
+        { title: "Ближе к природе", text: "Идем по тропам, встречаем рассветы и оставляем после себя только следы.", image: photo.forest, tag: "Природа" },
+        { title: "Жить как местный", text: "Заглядываем во дворы, мастерские и маленькие кафе, куда не ведут путеводители.", image: photo.morocco, tag: "Культура" }
+      ];
+      return `<section class="mx-auto max-w-7xl px-5 py-16 lg:px-8">${heading("Не просто поездка", "Почувствовать место", "Лучшие истории рождаются в моменты, которые невозможно запланировать — но можно бережно для них подготовить пространство.")}<div class="grid gap-6 md:grid-cols-3">${moments.map(card).join("")}</div><div class="mt-12 grid gap-8 rounded-[2rem] bg-[#18271f] p-8 text-white sm:p-12 md:grid-cols-2 md:items-center"><div><p class="text-xs font-bold uppercase tracking-widest text-[#d7f45b]">Маленькие детали</p><h3 class="mt-3 text-3xl font-black">Из них складывается большое путешествие</h3></div><ul class="space-y-4 text-white/75"><li>✳ Встречи с людьми, которые знают свое место изнутри</li><li>✳ Время на самостоятельные открытия</li><li>✳ Забота о комфорте без расписания по минутам</li></ul></div></section>`;
+    }
+
+    function journalPage() {
+      return `<section class="mx-auto max-w-7xl px-5 py-16 lg:px-8">${heading("Журнал путешествий", "Истории, которые вдохновляют", "Маршруты, заметки и идеи для вашей следующей большой истории.")}<div class="grid gap-6 md:grid-cols-3">${articles.map(card).join("")}</div><div class="mt-12 rounded-3xl bg-[#e9eddf] p-8"><p class="text-sm font-bold uppercase tracking-widest text-[#668047]">Письма из пути</p><h3 class="mt-2 text-2xl font-bold">Редкие письма, много вдохновения</h3><p class="mt-2 text-sm text-[#68756c]">Новые маршруты и полезные заметки — без лишнего шума.</p><form class="newsletter-form mt-5 flex max-w-xl flex-col gap-3 sm:flex-row"><label class="sr-only" for="newsletter-email">Ваш email</label><input id="newsletter-email" required type="email" placeholder="Ваш email" class="min-w-0 flex-1 rounded-full border-0 bg-white px-5 py-3 outline-none focus:ring-2 focus:ring-[#668047]"><button class="rounded-full bg-[#18271f] px-6 py-3 font-semibold text-white">Подписаться</button></form><p class="newsletter-message mt-3 text-sm" role="status"></p></div></section>`;
+    }
+
+    function aboutPage() {
+      return `<section class="mx-auto max-w-7xl px-5 py-16 lg:px-8"><div class="grid items-center gap-12 md:grid-cols-2"><div>${heading("Знакомьтесь, TALVING", "Мы путешествуем не за галочками", "TALVING — команда людей, которые однажды поняли: важнее не сколько стран ты посетил, а сколько настоящих встреч привез с собой.")}<p class="leading-7 text-[#68756c]">Мы создаем авторские поездки маленькими группами. Заранее знакомимся с местом, находим проводников, которым доверяем, и оставляем в маршруте воздух — для неожиданностей, отдыха и собственных открытий.</p><a href="#contacts" class="mt-7 inline-flex rounded-full bg-[#18271f] px-6 py-3 font-semibold text-white hover:bg-[#365441]">Познакомиться лично ↗</a></div><img src="${photo.coast}" alt="Побережье и прозрачное море" class="h-[420px] w-full rounded-[2rem] object-cover"></div><div class="mt-16 grid gap-6 sm:grid-cols-3"><div class="rounded-3xl bg-white p-7"><p class="text-4xl font-black">8+</p><p class="mt-2 text-[#68756c]">лет создаем путешествия</p></div><div class="rounded-3xl bg-white p-7"><p class="text-4xl font-black">34</p><p class="mt-2 text-[#68756c]">страны в наших маршрутах</p></div><div class="rounded-3xl bg-white p-7"><p class="text-4xl font-black">4.9/5</p><p class="mt-2 text-[#68756c]">средняя оценка поездок</p></div></div></section>`;
+    }
+
+    function reviewsPage() {
+      const reviews = [
+        { name: "Анна и Миша", where: "Япония, апрель", quote: "Это было путешествие, в котором все оказалось на своем месте: и четкий маршрут, и возможность просто свернуть в незнакомый переулок. Мы уже планируем следующую поездку." },
+        { name: "Катя", where: "Исландия, июнь", quote: "Я впервые путешествовала одна в группе и очень переживала. В итоге у меня появились друзья, тысяча фотографий водопадов и ощущение, что я могу гораздо больше." },
+        { name: "Денис", where: "Италия, сентябрь", quote: "Никакой гонки по достопримечательностям. Зато были долгие ужины, маленькие семейные места и люди, которых я до сих пор вспоминаю." }
+      ];
+      return `<section class="mx-auto max-w-7xl px-5 py-16 lg:px-8">${heading("Слова путешественников", "Лучше всего расскажут они", "Каждая поездка — это не только новый маршрут, но и люди, которые разделили его с нами.")}<div class="grid gap-6 md:grid-cols-3">${reviews.map((r) => `<article class="flex flex-col rounded-3xl bg-white p-7"><p class="text-3xl text-[#668047]" aria-hidden="true">“</p><blockquote class="flex-1 leading-7 text-[#354332]">${r.quote}</blockquote><div class="mt-7 border-t border-[#18271f]/10 pt-5"><p class="font-bold">${r.name}</p><p class="mt-1 text-sm text-[#68756c]">${r.where}</p></div></article>`).join("")}</div><div class="mt-10 rounded-3xl bg-[#d7f45b] p-8 text-center"><h3 class="text-2xl font-black">Ваша история может быть следующей</h3><a href="#tours" class="mt-5 inline-block rounded-full bg-[#18271f] px-6 py-3 font-semibold text-white">Выбрать поездку ↗</a></div></section>`;
+    }
+
+    function faqPage() {
+      const questions = [
+        ["Что входит в стоимость тура?", "В стоимость обычно включены проживание, сопровождение команды, внутренние переезды по маршруту и активности, отмеченные в программе. Перелет и личные расходы оплачиваются отдельно — точный состав указан на странице каждого тура."],
+        ["Можно поехать одному или одной?", "Конечно. Многие наши путешественники приезжают поодиночке. Мы помогаем познакомиться с группой заранее и подбираем комфортное размещение."],
+        ["Как забронировать место?", "Оставьте заявку на сайте или напишите нам. Мы уточним детали, ответим на вопросы и после вашего решения закрепим место предоплатой."],
+        ["Что если мои планы изменятся?", "Условия отмены и переноса зависят от конкретного тура и указаны в договоре. До бронирования мы подробно все объясним."],
+        ["Вы делаете индивидуальные маршруты?", "Да! Расскажите нам о датах, интересах и желаемом ритме — мы соберем персональный маршрут для одного человека, пары или компании."]
+      ];
+      return `<section class="mx-auto max-w-3xl px-5 py-16 lg:px-8">${heading("Все по делу", "Частые вопросы", "Не нашли ответ? Напишите нам — с удовольствием поможем.")}<div class="space-y-3">${questions.map(([q, a], i) => `<details class="group rounded-2xl bg-white p-5" ${i === 0 ? "open" : ""}><summary class="flex cursor-pointer list-none items-center justify-between gap-4 font-bold"><span>${q}</span><span class="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-[#e9eddf] transition group-open:rotate-45" aria-hidden="true">+</span></summary><p class="mt-4 pr-8 text-sm leading-7 text-[#68756c]">${a}</p></details>`).join("")}</div><a href="#contacts" class="mt-8 inline-block font-semibold underline underline-offset-4">Задать свой вопрос ↗</a></section>`;
+    }
+
+    function contactsPage() {
+      return `<section class="mx-auto max-w-7xl px-5 py-16 lg:px-8">${heading("Давайте знакомиться", "Мы на связи", "Поможем выбрать маршрут, расскажем о деталях и просто поговорим о путешествиях.")}<div class="grid gap-8 md:grid-cols-2"><div class="rounded-3xl bg-[#18271f] p-8 text-white sm:p-10"><p class="text-sm text-white/60">Напишите нам</p><a href="mailto:hello@talving.travel" class="mt-2 block break-all text-2xl font-bold sm:text-3xl">hello@talving.travel</a><p class="mt-8 text-sm text-white/60">Позвоните</p><a href="tel:+74951234567" class="mt-2 block text-2xl font-bold">+7 (495) 123-45-67</a><p class="mt-8 text-sm text-white/60">Часы работы</p><p class="mt-2">Пн–Пт, 10:00–19:00 (МСК)</p><div class="mt-8 border-t border-white/15 pt-6"><p class="text-sm text-white/60">Мы в социальных сетях</p><div class="mt-3 flex gap-4"><a href="https://t.me/" class="underline underline-offset-4 hover:text-[#d7f45b]">Telegram ↗</a><a href="https://www.instagram.com/" class="underline underline-offset-4 hover:text-[#d7f45b]">Instagram ↗</a></div></div></div><form id="contact-form" class="rounded-3xl bg-white p-8 sm:p-10"><h3 class="text-xl font-bold">Оставить сообщение</h3><label class="mt-6 block text-sm font-medium" for="contact-name">Как к вам обращаться?</label><input id="contact-name" name="name" required class="mt-2 w-full rounded-xl border border-[#18271f]/15 px-4 py-3 outline-none focus:border-[#668047]" placeholder="Ваше имя"><label class="mt-4 block text-sm font-medium" for="contact-email">Email для ответа</label><input id="contact-email" name="email" required type="email" class="mt-2 w-full rounded-xl border border-[#18271f]/15 px-4 py-3 outline-none focus:border-[#668047]" placeholder="name@example.com"><label class="mt-4 block text-sm font-medium" for="contact-message">Ваш вопрос</label><textarea id="contact-message" name="message" required rows="4" class="mt-2 w-full resize-y rounded-xl border border-[#18271f]/15 px-4 py-3 outline-none focus:border-[#668047]" placeholder="Расскажите, что вас интересует"></textarea><button class="mt-5 w-full rounded-full bg-[#18271f] px-6 py-3.5 font-semibold text-white hover:bg-[#365441]">Отправить сообщение ↗</button><p class="form-message mt-3 text-sm" role="status"></p></form></div></section>`;
+    }
+
+    function bookingPage() {
+      return `<section class="mx-auto max-w-7xl px-5 py-16 lg:px-8"><div class="grid gap-12 md:grid-cols-[0.9fr_1.1fr] md:items-start"><div>${heading("Шаг навстречу", "Расскажите о поездке мечты", "Это ни к чему не обязывает. Мы свяжемся с вами, обсудим идеи и предложим подходящий маршрут.")}<div class="space-y-4 rounded-3xl bg-[#e9eddf] p-6"><p class="font-bold">Как все устроено</p><p class="text-sm leading-6 text-[#68756c]">01 — Вы оставляете заявку<br>02 — Мы знакомимся и уточняем детали<br>03 — Готовим маршрут именно для вас</p></div></div><form id="booking-form" class="rounded-3xl bg-white p-7 shadow-sm sm:p-9"><div class="grid gap-4 sm:grid-cols-2"><div><label class="text-sm font-medium" for="booking-name">Ваше имя</label><input id="booking-name" name="name" required class="mt-2 w-full rounded-xl border border-[#18271f]/15 px-4 py-3 outline-none focus:border-[#668047]" placeholder="Имя"></div><div><label class="text-sm font-medium" for="booking-phone">Телефон</label><input id="booking-phone" name="phone" required type="tel" class="mt-2 w-full rounded-xl border border-[#18271f]/15 px-4 py-3 outline-none focus:border-[#668047]" placeholder="+7 (___) ___-__-__"></div><div><label class="text-sm font-medium" for="booking-email">Email</label><input id="booking-email" name="email" required type="email" class="mt-2 w-full rounded-xl border border-[#18271f]/15 px-4 py-3 outline-none focus:border-[#668047]" placeholder="name@example.com"></div><div><label class="text-sm font-medium" for="booking-destination">Куда хотите?</label><select id="booking-destination" name="destination" class="mt-2 w-full rounded-xl border border-[#18271f]/15 bg-white px-4 py-3 outline-none focus:border-[#668047]"><option value="">Пока не решил(а)</option>${destinations.map((d) => `<option>${d.name}</option>`).join("")}<option>Другое направление</option></select></div><div class="sm:col-span-2"><label class="text-sm font-medium" for="booking-note">Что важно учесть?</label><textarea id="booking-note" name="note" rows="4" class="mt-2 w-full rounded-xl border border-[#18271f]/15 px-4 py-3 outline-none focus:border-[#668047]" placeholder="Даты, интересы, пожелания..."></textarea></div></div><label class="mt-5 flex items-start gap-3 text-xs leading-5 text-[#68756c]"><input required type="checkbox" class="mt-1 accent-[#668047]"><span>Соглашаюсь на обработку персональных данных и принимаю политику конфиденциальности.</span></label><button class="mt-6 w-full rounded-full bg-[#18271f] px-6 py-4 font-bold text-white transition hover:bg-[#365441]">Отправить заявку ↗</button><p class="form-message mt-3 text-sm" role="status"></p><p class="mt-3 text-center text-xs text-[#68756c]">Ответим в течение одного рабочего дня</p></form></div></section>`;
+    }
+
+    const renderers = { home, destinations: destinationsPage, tours: toursPage, experience: experiencePage, journal: journalPage, about: aboutPage, reviews: reviewsPage, faq: faqPage, contacts: contactsPage, booking: bookingPage };
+    function navLinks(className = "") {
+      return pages.map((page) => `<a href="#${page.id}" class="${className} nav-link" data-page="${page.id}">${page.label}</a>`).join("");
+    }
+    document.getElementById("desktop-nav").innerHTML = navLinks("text-sm font-medium text-[#526057] transition hover:text-[#18271f]");
+    document.getElementById("mobile-nav").innerHTML = `<div class="grid grid-cols-2 gap-3 py-2">${navLinks("rounded-xl px-3 py-2 text-sm font-medium hover:bg-white")}</div><a href="#booking" class="mt-2 block rounded-full bg-[#18271f] px-4 py-3 text-center text-sm font-semibold text-white">Обсудить поездку ↗</a>`;
+    document.getElementById("footer-nav").innerHTML = pages.map((page) => `<a href="#${page.id}" class="hover:text-[#d7f45b]">${page.label}</a>`).join("");
+
+    function attachPageInteractions() {
+      const search = document.getElementById("destination-search");
+      if (search) {
+        let region = "Все";
+        const updateResults = () => {
+          const query = search.value.trim().toLocaleLowerCase("ru");
+          const filtered = destinations.filter((item) => (region === "Все" || item.place === region) && `${item.name} ${item.place} ${item.description}`.toLocaleLowerCase("ru").includes(query));
+          document.getElementById("destination-grid").innerHTML = filtered.map(card).join("");
+          document.getElementById("no-results").classList.toggle("hidden", filtered.length > 0);
+        };
+        search.addEventListener("input", updateResults);
+        document.querySelectorAll(".filter-chip").forEach((button) => button.addEventListener("click", () => {
+          region = button.dataset.region;
+          document.querySelectorAll(".filter-chip").forEach((chip) => {
+            chip.classList.remove("border-[#18271f]", "bg-[#18271f]", "text-white");
+            chip.classList.add("border-[#18271f]/15");
+          });
+          button.classList.add("border-[#18271f]", "bg-[#18271f]", "text-white");
+          button.classList.remove("border-[#18271f]/15");
+          updateResults();
+        }));
+      }
+      document.querySelectorAll(".newsletter-form").forEach((form) => form.addEventListener("submit", (event) => {
+        event.preventDefault();
+        form.reset();
+        form.nextElementSibling.textContent = "Спасибо! Вы подписаны на письма TALVING.";
+      }));
+      document.querySelectorAll("#contact-form, #booking-form").forEach((form) => form.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const name = new FormData(form).get("name");
+        form.querySelector(".form-message").textContent = `Спасибо, ${name}! Форма заполнена. Чтобы отправить заявку команде, напишите нам: hello@talving.travel.`;
+        form.querySelector(".form-message").classList.add("text-[#365441]");
+        form.reset();
+      }));
+    }
+    function renderPage() {
+      const id = location.hash.slice(1) || "home";
+      const page = pages.find((item) => item.id === id) || pages[0];
+      document.title = `${page.label} — TALVING`;
+      document.getElementById("app").innerHTML = renderers[page.id]();
+      document.querySelectorAll(".nav-link").forEach((link) => {
+        const active = link.dataset.page === page.id;
+        link.classList.toggle("text-[#18271f]", active);
+        link.classList.toggle("font-bold", active);
+        link.setAttribute("aria-current", active ? "page" : "false");
+      });
+      document.getElementById("mobile-nav").classList.add("hidden");
+      document.getElementById("menu-toggle").setAttribute("aria-expanded", "false");
+      document.getElementById("menu-toggle").textContent = "☰";
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      attachPageInteractions();
+    }
+    document.getElementById("menu-toggle").addEventListener("click", () => {
+      const nav = document.getElementById("mobile-nav");
+      const isOpen = nav.classList.toggle("hidden") === false;
+      document.getElementById("menu-toggle").setAttribute("aria-expanded", String(isOpen));
+      document.getElementById("menu-toggle").textContent = isOpen ? "×" : "☰";
+    });
+    window.addEventListener("hashchange", renderPage);
+    renderPage();
+  </script>
+</body>
+</html>
